@@ -9,6 +9,7 @@ set title " ターミナルのタイトルセット
 set showmatch " かっこの一致を強調
 set hidden " ファイル保存なしで別ファイルを開ける
 set autoread "内容が変更されたら自動的に再読込
+set clipboard=unnamed,autoselect " クリップボードを有効にする
 syntax on "コードの色分け
 
 "##### 文字コード #####
