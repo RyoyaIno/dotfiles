@@ -4,7 +4,7 @@
 
 Clone in home dir.
 ```bash
-$ cd;git clone git@github.com:rino/dotfiles.git
+$ cd;git clone git@github.com:inosy22/dotfiles.git
 ```
 
 This scripts create symbolic link to home dir from dotfiles.
