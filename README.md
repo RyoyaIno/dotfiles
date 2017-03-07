@@ -4,7 +4,7 @@
 
 Clone in home dir.
 ```bash
-$ cd;git clone git@git.corp.yahoo.co.jp:rino/dotfiles.git
+$ cd;git clone git@github.com:rino/dotfiles.git
 ```
 
 This scripts create symbolic link to home dir from dotfiles.
@@ -27,5 +27,5 @@ link.sh is automatically pick up file in files dir.
 $ vim ~/dotfiles/files/${target_file}
 
 # run script
-$ sh link.sh -f
+$ sh ~/dotfiles/link.sh -f
 ```
