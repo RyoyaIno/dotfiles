@@ -1,14 +1,34 @@
-#! /bin/bash
-FILES_DIR='files'
+#!/bin/bash
+IS_FORCE=false
 
-# files
-if [ ! -d files ]; then
-  echo '[EROR] files directory is missing.'
-  exit 1
-fi
-FILS=$(ls files)
-
-for FILE in $FILES; do
-  ln -s ~/dotfiles/${FILE} ~/${FILE}
+# check option arguments
+while getopts f OPT; do
+  case $OPT in
+    "f" )
+      IS_FORCE=true
+      ;;
+  esac
 done
-source ~/.bash_profile
+
+# prepare
+dir=$(cd $(dirname $0); pwd)/files
+files=$(ls -A $dir)
+
+# create link
+for file in $files; do
+  # remove exists file
+  if test -e ~/$file || test -h ~/$file; then
+    if $IS_FORCE; then
+      rm -f ~/$file
+    else
+      rm -i ~/$file
+    fi
+  fi
+  # create symlink
+  if test -e $dir/$file && test ! -e ~/$file && test ! -h ~/$file; then
+    ln -s $dir/$file ~/$file && echo "Created link ${file}"
+  else
+    echo "Skip ${file}"
+  fi
+done
+
