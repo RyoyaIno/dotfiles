@@ -1,8 +1,10 @@
-source $HOME/.bashrc
+# load bashrc
+if [ -f ~/.bashrc ]; then
+  source $HOME/.bashrc
+fi
 
 # display
-export PS1='[\u@\H:\W]
-$ '
+export PS1="[\u@\H:\W]\$(git branch 2>/dev/null | sed -e '/^[^*]/d' -e 's/* \(.*\)/\(\1\)/')\n$ "
 export PROMPT_COMMAND='echo -ne "\033]0;${USER}@${HOSTNAME}: ${PWD}\007"'
 
 # GOPATH
