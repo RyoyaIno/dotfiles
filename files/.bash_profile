@@ -7,38 +7,50 @@ fi
 export PS1="[\u@\H:\W]\$(git branch 2>/dev/null | sed -e '/^[^*]/d' -e 's/* \(.*\)/\(\1\)/')\n$ "
 export PROMPT_COMMAND='echo -ne "\033]0;${USER}@${HOSTNAME}: ${PWD}\007"'
 
-# GOPATH
-if type go >/dev/null 2>&1; then
-  if [ ! -e $HOME/.go ];then
-      mkdir $HOME/.go
-  fi
-  export GOPATH=$HOME/.go
-  export GOBIN=$GOPATH/bin
+# goenv
+# require `brew install golang` for system version
+# require `git clone https://github.com/syndbg/goenv.git ~/.goenv`
+export GOENV_ROOT="$HOME/.goenv"
+export PATH="$GOENV_ROOT/bin:$PATH"
+if type goenv >/dev/null 2>&1; then
+  eval "$(goenv init -)"
+  export GOROOT="$(goenv prefix)"
+  export PATH="$GOROOT/bin:$PATH"
+  export PATH="$GOPATH/bin:$PATH"
 fi
 
-# nvm
-if type brew >/dev/null 2>&1; then
-  NVM_SCRIPT=$(brew --prefix nvm)/nvm.sh
-  if [ -e $NVM_SCRIPT ]; then
-    source $NVM_SCRIPT
-    export NVM_DIR=$HOME/.nvm
-  fi
+# nodenv
+# require `brew install nodenv`
+export PATH="$HOME/.nodenv/bin:$PATH"
+if type nodenv >/dev/null 2>&1; then
+  eval "$(nodenv init -)"
 fi
 
-# rbenv
-if type rbenv >/dev/null 2>&1; then
-  export PATH="$HOME/.rbenv/bin:$PATH"
-  eval "$(rbenv init -)"
+# jenv
+# require `brew install jenv`
+# example)
+#  - `brew tap caskroom/versions`
+#  - `brew cask install java11`
+#  - `source ~/.bash_profile`
+# confirm local installed versions `/usr/libexec/java_home -V`
+export PATH="$HOME/.jenv/bin:$PATH"
+if type jenv >/dev/null 2>&1; then
+  eval "$(jenv init -)"
+  jenv add $(/usr/libexec/java_home) >/dev/null
 fi
 
-# Add environment variable COCOS_CONSOLE_ROOT for cocos2d-x
-export COCOS_CONSOLE_ROOT=/Applications/Cocos/Cocos2d-x/cocos2d-x-3.10/tools/cocos2d-console/bin
-export PATH=$COCOS_CONSOLE_ROOT:$PATH
+# dotnet for C#
+# require `brew cask install dotnet`
+export PATH=/usr/local/share/dotnet:$PATH
 
-# Add environment variable COCOS_X_ROOT for cocos2d-x
-export COCOS_X_ROOT=/Applications/Cocos/Cocos2d-x
-export PATH=$COCOS_X_ROOT:$PATH
+# mono for C#
+# require `brew install mono`
+export MONO_GAC_PREFIX="/usr/local"
 
-# Add environment variable COCOS_TEMPLATES_ROOT for cocos2d-x
-export COCOS_TEMPLATES_ROOT=/Applications/Cocos/Cocos2d-x/cocos2d-x-3.10/templates
-export PATH=$COCOS_TEMPLATES_ROOT:$PATH
+# openssl
+# require `brew install openssl`
+# nodenv dependency
+export PATH="/usr/local/opt/openssl/bin:$PATH"
+export LDFLAGS="-L/usr/local/opt/openssl/lib"
+export CPPFLAGS="-I/usr/local/opt/openssl/include"
+export PKG_CONFIG_PATH="/usr/local/opt/openssl/lib/pkgconfig"
