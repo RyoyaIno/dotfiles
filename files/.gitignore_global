@@ -1,5 +1,13 @@
+# system files
 *~
 .DS_Store
-nbproject/*
+
+# vim
 .tags
 .tags_swap
+
+# IDE
+nbproject/*
+idea/*
+.vscode/*
+
