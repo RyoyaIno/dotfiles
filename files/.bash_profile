@@ -47,6 +47,12 @@ export PATH=/usr/local/share/dotnet:$PATH
 # require `brew install mono`
 export MONO_GAC_PREFIX="/usr/local"
 
+# direnv
+# require `brew install direnv`
+if type direnv >/dev/null 2>&1; then
+  eval "$(direnv hook bash)"
+fi
+
 # openssl
 # require `brew install openssl`
 # nodenv dependency
@@ -54,3 +60,4 @@ export PATH="/usr/local/opt/openssl/bin:$PATH"
 export LDFLAGS="-L/usr/local/opt/openssl/lib"
 export CPPFLAGS="-I/usr/local/opt/openssl/include"
 export PKG_CONFIG_PATH="/usr/local/opt/openssl/lib/pkgconfig"
+
