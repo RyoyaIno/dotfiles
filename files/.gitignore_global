@@ -8,6 +8,6 @@
 
 # IDE
 nbproject/*
-idea/*
+.idea/*
 .vscode/*
 
